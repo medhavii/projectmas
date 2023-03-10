@@ -3,7 +3,6 @@ import express, { json } from 'express'
 import connection from './connection.js'
 import userRoutes from './routes/userRoutes.js'
 import adminRoutes from './routes/adminRoutes.js'
-import centerRoutes from './routes/centerRoutes.js'
 
 const app =   express();
 connection.connect((e)=> {
@@ -16,7 +15,6 @@ app.get('/',(req,res)=>{
 })
 app.use('/v1/api/user',userRoutes)
 app.use('/v1/api/admin',adminRoutes)
-app.use('/v1/api/center',centerRoutes)
 
 
 

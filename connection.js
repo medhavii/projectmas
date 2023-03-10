@@ -1,10 +1,10 @@
 
 import mysql from 'mysql'
 const config = {
-    host    : 'sql12.freesqldatabase.com',
-    user    : 'sql12595628',
-    password: 'IdwGiG7TnB',
-    database: 'sql12595628'
+    host    : 'slotbookingdb.coqpgejmz25x.us-east-1.rds.amazonaws.com',
+    user    : 'admin',
+    password: 'QaVtxl8BY9KXjtoA2tFS',
+    database: 'slotbooking'
   };
 
   

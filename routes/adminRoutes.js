@@ -1,9 +1,12 @@
 import { Router } from 'express';
-import controller from '../api/controller.js';
+import authController from '../api/authController.js';
+import slotsController from '../api/slotsController.js';
 const router = Router();
 
-router.post('/centerRegister',controller.centerRegister)
 
 
+router.post('/addSlots',slotsController.addSlots)
+router.post('/updateSlots',slotsController.updateSlots)
+router.delete('/deleteSlots',slotsController.deleteSlots)
 
 export default router;
