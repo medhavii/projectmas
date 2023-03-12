@@ -8,6 +8,8 @@ const router = Router();
 router.post('/register',authController.register)
 router.get('/login',authController.login)
 router.get('/getSlots',slotsController.getSlots)
-router.post('/bookSlots',bookingController.bookSlots)
+router.post('/bookSlot',bookingController.bookSlot)
+router.delete('/cancelSlot',bookingController.cancelSlot)
+
 
 export default router;
