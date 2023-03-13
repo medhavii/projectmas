@@ -1,12 +1,15 @@
 import { Router } from 'express';
-import controller from '../api/controller.js';
+import authController from '../api/authController.js';
+import bookingController from '../api/bookingController.js';
+import slotsController from '../api/slotsController.js';
+
 const router = Router();
 
-router.post('/register',controller.register)
-router.get('/login',controller.login)
-router.get('/centerLogin',controller.centerLogin)
-// router.post('/addstudent',controller.addStudent)
-// router.delete('/delstudent/:id',controller.deleteByID)
+router.post('/register',authController.register)
+router.get('/login',authController.login)
+router.get('/getSlots',slotsController.getSlots)
+router.post('/bookSlot',bookingController.bookSlot)
+router.delete('/cancelSlot',bookingController.cancelSlot)
 
 
 export default router;
