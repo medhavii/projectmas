@@ -1,8 +1,10 @@
 import React from 'react'
-import MyBooking from './MyBooking'
+import Booking2 from './Booking2';
+import MyBookings from './MyBooking';
 const Home = () => {
   return (
-     <MyBooking/>
+      <Booking2/> 
+    //  < MyBookings/>
   )
 }
 

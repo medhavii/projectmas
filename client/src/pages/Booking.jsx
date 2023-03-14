@@ -1,25 +1,37 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useEffect } from 'react';
 
 const Booking = () => {
+
+  useEffect(() => {
+    fetch('http://localhost:3000/v1/api/user/getSlots')
+      .then(response => response.json())
+      .then(data => setSlotData(data))
+      .catch(error => console.error(error));
+  }, []);
+
+  const [slotData,setSlotData] = useState(null);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
-
-  // Available slots for demo purposes
-  const timeSlots = [
-    { id: 1, time: '10:00 AM' },
-    { id: 2, time: '11:00 AM' },
-    { id: 3, time: '12:00 PM' },
-    { id: 4, time: '1:00 PM' },
-    { id: 5, time: '2:00 PM' },
-    { id: 6, time: '3:00 PM' },
-  ];
-
+  const [filteredSlots,setFilteredSlots] = useState(null);
+  
+  const convertDate = (selectedDate) =>{
+     let date = `"${selectedDate.getFullYear()}-${selectedDate.getMonth()+1}-${selectedDate.getDate()}"`;
+     return date
+  }
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    // Reset selected time slot when the date changes
-    setSelectedTimeSlot(null);
+    // setSelectedTimeSlot(null); // Reset selected time slot when the date changes
+    const filteredSlots = slotData.filter(slot => {
+      const slotDate = convertDate(selectedDate);
+      return (
+           slot.slot_date === slotDate
+      );
+    });
+    setFilteredSlots(filteredSlots);
+  
   };
 
   const handleTimeSlotSelection = (timeSlot) => {
@@ -50,9 +62,10 @@ const Booking = () => {
                 Select a time slot
               </label>
               <div className="mt-2 flex flex-wrap">
-                {selectedDate &&
-                  timeSlots.map((timeSlot) => (
-                    <button
+                {
+                selectedDate &&
+                  filteredSlots.map((timeSlot) => (
+                     <button
                       key={timeSlot.id}
                       onClick={() => handleTimeSlotSelection(timeSlot)}
                       className={`${
@@ -61,8 +74,10 @@ const Booking = () => {
                           : 'bg-blue-300 text-white'
                       } rounded-lg px-4 py-2 mt-2 mr-2 text-lg font-medium focus:outline-none focus:shadow-outline-blue active:bg-blue-200 transition duration-150 ease-in-out`}
                     >
-                      {timeSlot.time}
-                    </button>
+                    { 
+                     timeSlot.slot_time
+                    }
+                    </button> 
                   ))}
               </div>
             </div>
@@ -78,18 +93,21 @@ const Booking = () => {
                     weekday: 'long',
                     year: 'numeric',
                     month: 'long',
-                    day: 'numeric',
-                  })}{' '}
-                  at {selectedTimeSlot.time}
-                </p>
-              </div>
-            )}
-          </div>
-          </div>
-  </div>
+                    day:'numeric',
+                })}{' '}
+                at {selectedTimeSlot.time}
+              </p>
+                <button className='bg-blue-400 m-2 p-2 px-4 rounded'>confirm</button>
+                <button className='bg-red-400 m-2 p-2 px-4 rounded'>cancel</button>
+            </div>
+          )}
+        </div>
+        </div>
+</div>
 </div>
 
 );
 };
 
 export default Booking;
+

@@ -29,7 +29,6 @@ const addSlots = (req,res) =>{
 
 const getSlots = (req,res) =>{
     try{
-        let {id} = req.body
         let query =  `select * from slots;`
         connection.query(query,(error,result,fields)=>{
             if (error) throw console.error(error.sqlMessage)

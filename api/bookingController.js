@@ -48,7 +48,27 @@ const cancelSlot = (req, res) => {
   }
 };
 
+const getBookingbyID = (req,res) => {
+    try{
+        let {id} = req.body
+        let query =  `select * from slots where user_id=${id};`
+        connection.query(query,(error,result,fields)=>{
+            if (error) throw console.error(error.sqlMessage)
+            if(result.length){
+              res.send(result)
+            }else{
+              res.send("bookings are not available")
+            }
+        })
+        
+    }catch(err){
+     console.log(err)
+    }
+ }
+
+
 export default {
   bookSlot,
   cancelSlot,
+  getBookingbyID,
 };

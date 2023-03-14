@@ -1,5 +1,5 @@
 import express, { json } from 'express'
-
+import cors from 'cors'
 import connection from './connection.js'
 import userRoutes from './routes/userRoutes.js'
 import adminRoutes from './routes/adminRoutes.js'
@@ -10,6 +10,7 @@ connection.connect((e)=> {
   console.log("Connected!");
 }); 
 app.use(express.json())
+app.use(cors())
 app.get('/',(req,res)=>{
     res.send('hello')
 })
