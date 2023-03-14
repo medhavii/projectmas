@@ -76,8 +76,9 @@ const Header = () => {
             </button> }
           </div>
           <div className="flex-1 flex items-center justify-center sm:items-center  sm:justify-start">
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 text-bold text-white text-2xl">
              {/* insert logo here */}
+            SlotBooking
             </div>
             <div className="hidden md:flex ml-auto">
                   {data.map((data)=>(
