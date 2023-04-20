@@ -1,47 +1,44 @@
 import connection from '../connection.js';
-const register = (req,res) => {
-    try{
-        const {name,contact,email,password,dob,gender,booked} = req.body
-       let query = `insert into user (name,contact,mail,password,dob,gender,booked) values ("${name}","${contact}","${email}","${password}","${dob}",'${gender}',${booked});`
-        connection.query(query,(error,result) => {
-            if (error){
-             throw console.error(error)
+
+const register = async (req, res) => {
+    try {
+        const { name, contact, email, password, dob, gender, booked } = req.body;
+        let query = `insert into user (name, contact, mail, password, dob, gender, booked) values ("${name}", "${contact}", "${email}", "${password}", "${dob}", "${gender}", ${booked});`;
+        await connection.query(query, (error, result) => {
+            if (error) {
+                throw new Error(error.sqlMessage);
             }
-            console.log(result)
-          });
-        
-        res.send("user registered")
-    }catch(err){
-        console.log(err)
+            console.log(result);
+        });
+        res.send('User registered');
+    } catch (err) {
+        console.log(err);
+        res.send(err.message);
     }
+};
 
-}
-
-const login = async (req,res) =>{
-    try{
-        const {contact,password} = req.body
-        let query = `select * from user where contact = "${contact}"`
-       await connection.query(query,(error,result,fields)=>{
-            if(error){
-                throw console.error(error.sqlMessage)
+const login = async (req, res) => {
+    try {
+        const { contact, password } = req.body;
+        let query = `select * from user where contact = "${contact}"`;
+        await connection.query(query, (error, result, fields) => {
+            if (error) {
+                throw new Error(error.sqlMessage);
             }
-            console.log(result)
-            if(result.length){
-               result[0].password == password ? res.send("welcome"+result[0].name) : res.send("wrong password")
-            }else{
-                res.send("user doesnt exist")
+            console.log(result);
+            if (result.length) {
+                result[0].password == password ? res.send({'name' : result[0].name}) : res.send({'name' : '','error' : 'wrong pass'});
+            } else {
+                res.send({'error' : 'wrong pass'});
             }
-        })
-    }catch(err){
-        console.log(err+"hello")
+        });
+    } catch (err) {
+        console.log(err);
+        res.send(err.message);
     }
-    
-}
-
-
-
+};
 
 export default {
     register,
     login,
-}
+};

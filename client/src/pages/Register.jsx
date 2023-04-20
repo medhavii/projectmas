@@ -18,7 +18,7 @@ const Register = () => {
     console.log("request made")
     const formData = { name, mobile, email, password, repassword, role }
     try {
-      const response = await fetch('http://localhost:3002/api/v1/register', {
+      const response = await fetch('http://localhost:3000/v1/api/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -45,7 +45,7 @@ const Register = () => {
 
   return (
     <>
-      <div className="mt-5 md:mt-12  items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="mt-5 md:mt-12  items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-800 to-indigo-900">
       <h2 className="text-5xl font-bold text-gray-900 text-center">
           One step closer to book your<span className="text-blue-700"> Slots</span> !!
         </h2>

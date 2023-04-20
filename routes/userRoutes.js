@@ -6,8 +6,9 @@ import slotsController from '../api/slotsController.js';
 const router = Router();
 
 router.post('/register',authController.register)
-router.get('/login',authController.login)
+router.post('/login',authController.login)
 router.get('/getSlots',slotsController.getSlots)
+router.post('/getBookingsByNumber',bookingController.getBookingsByNumber)
 router.post('/bookSlot',bookingController.bookSlot)
 router.delete('/cancelSlot',bookingController.cancelSlot)
 

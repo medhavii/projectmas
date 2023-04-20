@@ -6,9 +6,9 @@ const Home = () => {
   return (
      
     <>
-         {/* <Booking2/> 
-      < MyBookings/> */}
-       <Slots />
+         <Booking2/> 
+      {/* < MyBookings/> */}
+       {/* <Slots /> */}
 
      
     

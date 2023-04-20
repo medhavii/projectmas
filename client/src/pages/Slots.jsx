@@ -15,9 +15,9 @@ const Slots = () => {
   const data = [
       {
         "id" : "1",
-         "slot_time" : "12",
+         "slot_time" : "12:00",
          "location" : "chennai",
-         "address" : "Robert Robertson, 1234 NW Bobcat Lane, St. Robert, MO 65584-5678."
+         "address" : "Dunder Mifflin 1725 Slough Avenue, Suite 200 ,Scranton,Pennsylvania"
       }
   ]
 
