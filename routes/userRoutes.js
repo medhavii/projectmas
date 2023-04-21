@@ -10,7 +10,7 @@ router.post('/login',authController.login)
 router.get('/getSlots',slotsController.getSlots)
 router.post('/getBookingsByNumber',bookingController.getBookingsByNumber)
 router.post('/bookSlot',bookingController.bookSlot)
-router.delete('/cancelSlot',bookingController.cancelSlot)
+router.post('/cancelSlot',bookingController.cancelSlot)
 
 
 export default router;

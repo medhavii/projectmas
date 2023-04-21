@@ -7,6 +7,8 @@ import Dashboard from "./pages/Dashboard";
 // import Footer from "./components/shared/Footer";
 import PrivateRoute from './PrivateRoute.js'
 import AuthState from "./context/authState";
+import AddSlots from "./pages/AddSlots";
+import BookSlot from "./pages/BookSlot";
 
 function App() {
   
@@ -22,9 +24,11 @@ function App() {
           <Routes>
           
             <Route element={<PrivateRoute />}>
+              <Route path="/bookslots" element={<BookSlot/>}/>
               <Route path="/dashboard" element={<Dashboard/>}/>
             </Route>
             <Route path="/" element={<Home />} />
+            <Route path="/addslots" element={<AddSlots/>}/>
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Register />} />
           </Routes>

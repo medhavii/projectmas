@@ -40,7 +40,7 @@ const Login = () => {
 
   return (
       <>
-       <div className="mt-10 md:mt-12 md:flex items-center justify-around bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+       <div className="mt-10 md:mt-12 md:flex items-center justify-around py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
   
         <div>
@@ -50,7 +50,7 @@ const Login = () => {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="rounded-md shadow-sm space-y-5">
             <div>
               <label htmlFor="email-address" className="sr-only">
                 Phone
@@ -61,7 +61,7 @@ const Login = () => {
                 type="number"
                 autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                 placeholder="phone"
                 value={contact}
                 onChange={(e) => setContact(e.target.value)}
@@ -77,7 +77,7 @@ const Login = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

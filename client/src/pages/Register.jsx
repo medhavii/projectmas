@@ -6,17 +6,16 @@ const Register = () => {
 
   const updateContext = useContext(authContext)
   const [name, setName] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRepassword] = useState("");
-  const [role, setRole] = useState("");
   const [error, setError] = useState("")
   const navigate = useNavigate()
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("request made")
-    const formData = { name, mobile, email, password, repassword, role }
+    const formData = { name, contact, email, password}
     try {
       const response = await fetch('http://localhost:3000/v1/api/user/register', {
         method: 'POST',
@@ -26,9 +25,9 @@ const Register = () => {
 
       if (response.ok) {
         // Signup successful
-        const { name, email, role } = await response.json()
+        const { name, number,role } = await response.json()
         console.log(updateContext)
-        updateContext.data = { name, email, role }
+        updateContext.data = {"name" : name, "number" : number}
         updateContext.login = true;
         console.log(updateContext)
         navigate("/dashboard")
@@ -45,7 +44,7 @@ const Register = () => {
 
   return (
     <>
-      <div className="mt-5 md:mt-12  items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-blue-800 to-indigo-900">
+      <div className="mt-5 md:mt-12  items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 ">
       <h2 className="text-5xl font-bold text-gray-900 text-center">
           One step closer to book your<span className="text-blue-700"> Slots</span> !!
         </h2>
@@ -53,9 +52,9 @@ const Register = () => {
               create your account
             </h2>
         <div className="max-w-lg mx-auto">
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+          <form className="mt-8 space-y-6 " onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
-            <div className="rounded-md shadow-sm -space-y-px">
+            <div className="rounded-md shadow-sm space-y-2">
               <div>
                 <label htmlFor="email-address" className="sr-only">
                   Name
@@ -66,7 +65,7 @@ const Register = () => {
                   type="text"
                   autoComplete="name"
                   required
-                  className="mt-5 appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  className="mt-5 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                   placeholder="Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -82,7 +81,7 @@ const Register = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -98,10 +97,10 @@ const Register = () => {
                   type="tel"
                   autoComplete="mobile number"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                   placeholder="phone number"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value)}
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
                 />
               </div>
               <div>
@@ -114,7 +113,7 @@ const Register = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -130,21 +129,13 @@ const Register = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                   placeholder="re-Enter Password"
                   value={repassword}
                   onChange={(e) => setRepassword(e.target.value)}
                 />
               </div>
-              <div>
-                <label htmlFor="role" className="sr-only">
-                  Role
-                </label>
-                <select name="role" className="bg-white appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300  text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm" onChange={(e) => setRole(e.target.value)}>
-                  <option>student</option>
-                  <option>employee</option>
-                </select>
-              </div>
+             
             </div>
 
 
