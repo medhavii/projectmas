@@ -27,7 +27,7 @@ const Register = () => {
         // Signup successful
         const { name, number} = await response.json()
         console.log(updateContext)
-        updateContext.data = {"name" : name, "number" : number}
+        updateContext.data = {"name" : name, "contact" : number}
         updateContext.login = true;
         console.log(updateContext)
         navigate("/dashboard")
