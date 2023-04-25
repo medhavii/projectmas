@@ -62,7 +62,7 @@ const Dashboard = () => {
     return (
 
       <>
-        <p className='text-4xl'>welcome {context.data.name} buddy</p>
+        <p className='text-4xl'>welcome {context.data.name}</p>
         
         {success && <SuccessAlert message={"slot deleted"}/>}  
         <div className='mt-28'>
