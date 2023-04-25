@@ -13,7 +13,7 @@ const AddSlots = () => {
   const [success,setSuccess] = useState(false)
   const addSlots = async () => {
     try {
-     const response = await axios.post('http://localhost:3000/v1/api/admin/addSlots', {
+     const response = await axios.post('https://projectmas.vercel.app/v1/api/admin/addSlots', {
         ...formData
       })
       return response.data;

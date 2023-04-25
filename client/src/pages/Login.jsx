@@ -14,7 +14,7 @@ const Login = () => {
   const handleSubmit = async(event) => {
     event.preventDefault();
     console.log({contact,password})
-    const response = await fetch('http://localhost:3000/v1/api/user/login', {
+    const response = await fetch('https://projectmas.vercel.app/v1/api/user/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ contact, password }),

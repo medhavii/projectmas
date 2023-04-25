@@ -23,7 +23,7 @@ const BookSlot = () => {
 
     const bookSlot = async (id,number) => {
         try {
-            const response = await axios.post('http://localhost:3000/v1/api/user/bookSlot',{
+            const response = await axios.post('https://projectmas.vercel.app/v1/api/user/bookSlot',{
                  "slot_id" : id,
                  "number" : number
             })
@@ -37,7 +37,7 @@ const BookSlot = () => {
     
     const getAllSlots = async () => {
         try {
-         const response = await axios.get('http://localhost:3000/v1/api/user/getSlots')
+         const response = await axios.get('https://projectmas.vercel.app/v1/api/user/getSlots')
           return response.data;
         }
         catch (error) {

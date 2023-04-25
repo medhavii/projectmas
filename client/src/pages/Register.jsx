@@ -17,7 +17,7 @@ const Register = () => {
     console.log("request made")
     const formData = { name, contact, email, password}
     try {
-      const response = await fetch('http://localhost:3000/v1/api/user/register', {
+      const response = await fetch('https://projectmas.vercel.app/v1/api/user/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -25,7 +25,7 @@ const Register = () => {
 
       if (response.ok) {
         // Signup successful
-        const { name, number,role } = await response.json()
+        const { name, number} = await response.json()
         console.log(updateContext)
         updateContext.data = {"name" : name, "number" : number}
         updateContext.login = true;

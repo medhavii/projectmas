@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [success,setSuccess] = useState(false)
   const getSlots = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/v1/api/user/getBookingsByNumber', {
+      const response = await axios.post('https://projectmas.vercel.app/v1/api/user/getBookingsByNumber', {
         number: context.data.contact,
       })
       return response.data;
@@ -26,7 +26,7 @@ const Dashboard = () => {
   
   const cancelSlot = async (slot_id) => {
     try {
-      const response = await axios.post('http://localhost:3000/v1/api/user/cancelSlot', {
+      const response = await axios.post('https://projectmas.vercel.app/v1/api/user/cancelSlot', {
         "number": context.data.contact,
         "slot_id": slot_id,
       })
@@ -49,13 +49,13 @@ const Dashboard = () => {
          }
     })
   }
-
     useEffect(() => {
       setLoading(true);
       getSlots().then((data) => {
         setBookings(data);
         setLoading(false);
       });
+      // eslint-disable-next-line
     }, [context,success])
 
 
