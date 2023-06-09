@@ -1,5 +1,5 @@
 
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 const data = [
@@ -36,7 +36,7 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-          { location.pathname != '/dashboard'  &&
+          { location.pathname !== '/dashboard'  &&
             <button
               type="button"
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
@@ -76,8 +76,9 @@ const Header = () => {
             </button> }
           </div>
           <div className="flex-1 flex items-center justify-center sm:items-center  sm:justify-start">
-            <div className="flex-shrink-0">
+            <div className="flex-shrink-0 text-bold text-white text-2xl">
              {/* insert logo here */}
+            SlotBooking
             </div>
             <div className="hidden md:flex ml-auto">
                   {data.map((data)=>(

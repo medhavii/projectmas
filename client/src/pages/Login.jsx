@@ -6,24 +6,30 @@ import { useNavigate } from 'react-router';
 const Login = () => {
   const navigate = useNavigate()
   const updateContext = useContext(authContext)
-  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
   const [password, setPassword] = useState("");
   const [error,setError] = useState("")
  
   
   const handleSubmit = async(event) => {
     event.preventDefault();
-    const response = await fetch('http://localhost:3002/api/v1/login', {
+    console.log({contact,password})
+    const response = await fetch('https://projectmas.vercel.app/v1/api/user/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({ contact, password }),
     });
 
      if(response.ok){
-      const { token } = await response.json();
-      updateContext.login = true
-      updateContext.data = {"email":email}
-      navigate("/dashboard")
+      const {name,error} = await response.json();
+      console.log({name,error})
+      if(name){
+        updateContext.login = true
+        updateContext.data = {"name":name,"contact":contact}
+        navigate("/dashboard")
+      }else{
+         setError("wrong number or password")
+      }
       console.log(updateContext)
      }else{
       const { message } = await response.json();
@@ -34,7 +40,7 @@ const Login = () => {
 
   return (
       <>
-       <div className="mt-10 md:mt-12 md:flex items-center justify-around bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+       <div className="mt-10 md:mt-12 md:flex items-center justify-around py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
   
         <div>
@@ -44,21 +50,21 @@ const Login = () => {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <input type="hidden" name="remember" defaultValue="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="rounded-md shadow-sm space-y-5">
             <div>
               <label htmlFor="email-address" className="sr-only">
-                Email address
+                Phone
               </label>
               <input
                 id="email-address"
                 name="email"
-                type="email"
+                type="number"
                 autoComplete="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                placeholder="phone"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
               />
             </div>
             <div>
@@ -71,7 +77,7 @@ const Login = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
+                className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

@@ -1,108 +1,97 @@
+import connection from "../connection.js";
 
-import connection from '../connection.js';
+const addSlots = (req, res) => {
+  try {
+    const { slot_date, slot_time, address, name, count } = req.body;
 
-const addSlots = (req,res) =>{
-   try{
-       let {slot_date,slot_time,address,location} = req.body
-       let query = `select id from slots where slot_date = "${slot_date}" and slot_time = "${slot_time}" `;
-       connection.query(query,(error,result,fields)=>{
-           if (error) throw console.error(error.sqlMessage)
-           console.log(result)
-           if(!(result.length)){
-             
-            let query = `insert into slots (slot_date,slot_time,address,location) values("${slot_date}","${slot_time}","${address}","${location}")`
-            connection.query(query,(error,result,fields)=>{
-                if (error) throw console.error(error.sqlMessage)
-                console.log(result)
-                res.send("added slot")
-            })
-           }else{
-             res.send("slot already exits")
-           }
-          
-       })
-       
-   }catch(err){
-    console.log(err)
-   }
-}
-
-const getSlots = (req,res) =>{
-    try{
-        let {id} = req.body
-        let query =  `select * from slots;`
-        connection.query(query,(error,result,fields)=>{
-            if (error) throw console.error(error.sqlMessage)
-            if(result.length){
-              res.send(result)
-            }else{
-              res.send("slots are not available")
-            }
-           
-        })
-        
-    }catch(err){
-     console.log(err)
+    // Check if all required fields are present
+    if (!slot_date || !slot_time || !address || !name) {
+      return res
+        .status(400)
+        .send({
+          success: false,
+          message: "Please provide all required fields.",
+        });
     }
- }
 
- const updateSlots = (req,res) =>{
-    try{
-        let {id,slot_date,slot_time,address,location} = req.body
-        let query = `update slots set `;
-        
-        if(slot_date){
-            query += `slot_date="${slot_date}" ,`
-        }
-        if(slot_time){
-            query += `slot_time="${slot_time}" ,`
-        }
-        if(address){
-            query += `address="${address}" ,`
-        }
-        if(location){
-            query += `location="${location}" ,`
-        }
-        
-        query = query.slice(0,-1)
-        query += `where id= ${id} ;`;
-        console.log(query)
-       
+    const addQuery = `INSERT INTO slots (slot_date, slot_time, address, name, available, count) VALUES ('${slot_date}', '${slot_time}', '${address}', '${name}', true, ${count});`;
+    connection.query(addQuery, (addError, addResult) => {
+      if (addError) throw addError;
 
-        connection.query(query,(error,result,fields)=>{
-            if (error) throw console.error(error.sqlMessage)
-            console.log(result)
+      res.send({ success: true, message: "Slot added successfully." });
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+const updateSlots = (req, res) => {
+  try {
+    const { id } = req.params;
+    const { slot_date, slot_time, address, name } = req.body;
 
-            res.send("slot updated")
-           
-        })
-        
-    }catch(err){
-     console.log(err)
+    // Check if all required fields are present
+    if (!slot_date || !slot_time || !address || !name) {
+      return res.status(400).send("Please provide all required fields.");
     }
- }
 
-const deleteSlots = (req,res) =>{
-    try{
-        let {id} = req.body
-        let query = `delete from slots where id=${id}`;
-        console.log(query)
-        connection.query(query,(error,result,fields)=>{
-            if (error) throw console.error(error.sqlMessage)
-            console.log(result)
+    const updateQuery = `UPDATE slots SET slot_date='${slot_date}', slot_time='${slot_time}', address='${address}', name='${name}' WHERE id=${id};`;
+    connection.query(updateQuery, (updateError, updateResult) => {
+      if (updateError) throw updateError;
 
-            res.send("slot deleted")
-           
-        })
-        
-    }catch(err){
-     console.log(err)
-    }
- }
- 
+      // Check if the slot exists
+      if (updateResult.affectedRows === 0) {
+        return res.status(404).send("Slot not found.");
+      }
+
+      res.send("Slot updated successfully.");
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const deleteSlots = (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deleteQuery = `DELETE FROM slots WHERE id=${id};`;
+    connection.query(deleteQuery, (deleteError, deleteResult) => {
+      if (deleteError) throw deleteError;
+
+      // Check if the slot exists
+      if (deleteResult.affectedRows === 0) {
+        return res.status(404).send("Slot not found.");
+      }
+
+      res.send("Slot deleted successfully.");
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+const getSlots = (req, res) => {
+  try {
+    const getAllQuery = `SELECT * FROM slots;`;
+    connection.query(getAllQuery, (getAllError, getAllResult) => {
+      if (getAllError) throw getAllError;
+
+      res.send(getAllResult);
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Internal Server Error");
+  }
+};
+
+
+
 export default {
-      addSlots,
-      getSlots,
-      updateSlots,
-      deleteSlots,
-}
+  addSlots,
+  getSlots,
+  updateSlots,
+  deleteSlots,
+};
